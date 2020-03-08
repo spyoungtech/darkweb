@@ -1,0 +1,39 @@
+{% extends 'base.j2' %}
+{% block body %}
+
+      <div class="col s12 card-content grey darken-4">
+         <form method="post" action="/" id="blackform">
+         <div class="col s6">
+                    Line Length:
+                    <input type="number" name="-l" value="88" class="black white-text" style="max-width: 3.5em"/>
+         </div>
+            <div class="switch col s6">
+            Skip String Normalization
+               <label class="white-text">
+               No
+               <input type="checkbox" name="-s">
+               <span class="lever"></span>
+               Yes
+               </label>
+            </div>
+            <div class="row">
+<div class="editor-holder">
+	<ul class="toolbar">
+		<li><a href="#" id="indent" title="Toggle tabs or spaces"><i class="fa fa-indent"></i></a></li>
+		<li><a href="#" id="fullscreen" title="Toggle fullscreen mode"><i class="fa fa-expand"></i></a></li>
+	</ul>
+	<div class="scroller">
+		<textarea class="editor allow-tabs" name="source" form="blackform">{{ code_placeholder }}</textarea>
+		<pre><code class="syntax-highight python"></code></pre>
+	</div>
+</div>
+
+            </div>
+             <div class="row">
+                 <div class="col s5">
+            <input type="submit" value="Black" class="btn black center">
+                 </div>
+                 </div>
+         </form>
+      </div>
+{% endblock %}

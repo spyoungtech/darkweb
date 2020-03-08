@@ -1,27 +1,10 @@
-from flask import Flask, request, make_response, render_template_string, flash
+from textwrap import dedent
+from flask import Flask, request, make_response, render_template, escape
 import black
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def home():
-    return render_template_string(
-        '''
-    <html>
-    <form method="post" action="/format" id="blackform">
-    Line Length: <input type="number" name="-l" value="88"><br/>
-    Skip String Normalization: <input type="checkbox" name="-s"><br/>
-    <textarea name="source" form="blackform">print('Paste your code here!')</textarea><br/>
-    <input type="submit" value="Black"><br/>
-    </form>
-    </html>
-    '''
-    )
-
-
-@app.route('/format', methods=['POST'])
-def format_code():
+def black_format_code():
     source = request.form['source']
     print(list(request.form.items()))
     kwargs = {
@@ -31,6 +14,32 @@ def format_code():
     reformatted_source = black.format_file_contents(
         source, fast=True, mode=black.FileMode(**kwargs)
     )
+    return reformatted_source
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        code_placeholder = black_format_code()
+    else:
+        code_placeholder = escape(dedent('''
+        print('Press the "Black" button to reformat this code!')
+        j = [1,
+        2,
+        3
+        ]
+        
+        def very_important_function(template: str, *variables, file: os.PathLike, engine: str, header: bool = True, debug: bool = False):
+            """Applies `variables` to the `template` and writes to `file`."""
+            with open(file, 'w') as f:
+                ...
+        
+        '''))
+    return render_template('home.j2', code_placeholder=code_placeholder)
+
+
+@app.route('/format', methods=['POST'])
+def format_code():
+    reformatted_source = black_format_code()
     response = make_response(reformatted_source)
     response.mimetype = 'text/plain'
     return response

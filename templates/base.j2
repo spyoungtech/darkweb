@@ -1,0 +1,29 @@
+<html>
+   <head>
+      <!-- Compiled and minified CSS -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.0/foundation.min.css">
+       <link rel="stylesheet" href="{{ url_for('static', filename="style.scss") }}">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style>
+
+      </style>
+   </head>
+   <body class="darken-3">
+   <div class="container">
+   <div class="row">
+    <h1>Dark Web: Online Python Black Formatter</h1>
+   {% block body %}
+    {% endblock %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://use.fontawesome.com/b2c0f76220.js"></script>
+    <script src="{{ url_for('static', filename='emmet.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
+       <script src="{{ url_for('static', filename='editor.js') }}"></script>
+   </div>
+   </div>
+   </body>
+</html>
